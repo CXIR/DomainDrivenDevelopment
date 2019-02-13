@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Prospection\" />
+    <Folder Include="Vivier\" />
+    <Folder Include="RealisationEntretien\" />
+    <Folder Include="BaseSalariale\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Entretien.cs" />
+    <Compile Remove="Expert.cs" />
+    <Compile Remove="Entretien\RendezVous.cs" />
+    <Compile Remove="Vivier\Candidat.cs" />
+    <Compile Remove="RealisationEntretien\Expert.cs" />
+    <Compile Remove="Prospection\Candidat.cs" />
+  </ItemGroup>
+</Project>

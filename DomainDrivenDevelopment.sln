@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainDrivenDevelopment", "DomainDrivenDevelopment\DomainDrivenDevelopment.csproj", "{ABCA8FEE-1D9B-4A32-A95E-25DB29AD6341}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDPlanification", "DDDOnion\DDDPlanification.csproj", "{FD86F526-F3E1-448C-A06A-F3DDC81F9A77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABCA8FEE-1D9B-4A32-A95E-25DB29AD6341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCA8FEE-1D9B-4A32-A95E-25DB29AD6341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCA8FEE-1D9B-4A32-A95E-25DB29AD6341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCA8FEE-1D9B-4A32-A95E-25DB29AD6341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD86F526-F3E1-448C-A06A-F3DDC81F9A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD86F526-F3E1-448C-A06A-F3DDC81F9A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD86F526-F3E1-448C-A06A-F3DDC81F9A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD86F526-F3E1-448C-A06A-F3DDC81F9A77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
