@@ -1,59 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 using DDDOnion.Vivier;
+using DDDPlanification.BaseSalariale;
 using DDDPlanification.Models;
 
 namespace DDDPlanification
 {
     public class Planification 
     {
+        public Entretien Entretien { get; set; }
+        IVivier Vivier { get; set; }
+        public IBaseSalariale BaseSalariale { get; set; }
 
-        IVivier vivier;
-
-        private bool crDisponible(ConsultantRecruteur consultantRecruteur, DateTime date)
+        public Entretien PlanifierEntretien(Candidat candidat, DateTime debut, int dureeMinutes)
         {
-            return consultantRecruteur.disponibilites.Exists(dispo => dispo.debut <= date && dispo.fin >= date);
-        }
+            List<ConsultantRecruteur> consultantRecruteurs = BaseSalariale.GetConsultantRecruteurs();
 
-        private bool verificationPlanification(Candidat candidat, ConsultantRecruteur consultantRecruteur, DateTime date)
-        {
-            if (consultantRecruteur.uneCompetence(candidat.Competence))
+            if(debut.Hour > 7 && debut.AddMinutes(dureeMinutes).Hour < 19)
             {
-                if (crDisponible(consultantRecruteur, date))
+                Creneau creneau = new Creneau(debut, dureeMinutes);
+
+                foreach (ConsultantRecruteur cr in consultantRecruteurs)
                 {
-                    return true;
+                    if (cr.PeutTester(candidat) && cr.EstDisponible(creneau))
+                    {
+                        return new Entretien(candidat, cr, creneau);
+                    }
                 }
             }
-            return false;
-
+            return null; //throw new Exception();
         }
 
-        public Entretien planifierEntretien(Candidat candidat, ConsultantRecruteur consultantRecruteur, DateTime date)
+        public void ReplanifierEntretien(Entretien entretien, DateTime nouvelleDate, int dureeMinutes)
         {
-            if(verificationPlanification(candidat, consultantRecruteur, date))
+            List<ConsultantRecruteur> consultantRecruteurs = BaseSalariale.GetConsultantRecruteurs();
+
+            if (nouvelleDate.Hour > 7 && nouvelleDate.AddMinutes(dureeMinutes).Hour < 19)
             {
-                return new Entretien()
+                Creneau creneau = new Creneau(nouvelleDate, dureeMinutes);
+
+                foreach (ConsultantRecruteur cr in consultantRecruteurs)
                 {
-                    Candidat = candidat,
-                    ConsultantRecruteur = consultantRecruteur,
-                    Date = date
-                };
+                    if (cr.PeutTester(Entretien.Candidat) && cr.EstDisponible(creneau))
+                    {
+                        Entretien.Replanifier(cr, creneau);
+                    }
+                }
             }
 
-            return null;
+            throw new Exception();
         }
 
-        public Entretien replanifierEntretien(Entretien entretien, DateTime nouvelleDate)
+        public void AnnulerEntretien(Entretien entretien, string raison)
         {
-            if (verificationPlanification(entretien.Candidat, entretien.ConsultantRecruteur, nouvelleDate))
-            {
-                entretien.Date = nouvelleDate;
-            }
-            return entretien;
-        }
-
-        public bool  annulerEntretien(Entretien entretien)
-        {
-            return vivier.archiverCandidat(entretien.Candidat);
+            entretien.Annuler(raison);
+            Vivier.archiverCandidat(entretien.Candidat);
         }
     }
 }

@@ -6,6 +6,6 @@ namespace DDDOnion.Prospection
 {
     public interface IProspection
     {
-        Candidat GetCandidat(int identifiant);
+        List<Candidat> GetCandidats();
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using DDDPlanification.Models;
+using System.Collections.Generic;
 
-namespace DDDPlanification.BaseSalariale
+namespace DDDPlanification.MockService
 {
-    public interface IBaseSalariale
+    public interface IMockFactory
     {
         List<ConsultantRecruteur> GetConsultantRecruteurs();
     }

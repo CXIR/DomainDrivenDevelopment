@@ -6,13 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Moq" Version="4.10.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Prospection\" />
     <Folder Include="Vivier\" />
-    <Folder Include="RealisationEntretien\" />
     <Folder Include="BaseSalariale\" />
+    <Folder Include="Uses_Cases\" />
+    <Folder Include="MockService\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Entretien.cs" />
@@ -21,5 +23,8 @@
     <Compile Remove="Vivier\Candidat.cs" />
     <Compile Remove="RealisationEntretien\Expert.cs" />
     <Compile Remove="Prospection\Candidat.cs" />
+    <Compile Remove="Realisation\IRealisationEntretien.cs" />
+    <Compile Remove="MockService\IMockFactory.cs" />
+    <Compile Remove="Models\Niveau.cs" />
   </ItemGroup>
 </Project>

@@ -1,21 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DDDPlanification.Models
 {
-    public class ConsultantRecruteur
+    public class ConsultantRecruteur : IEquatable<ConsultantRecruteur>
     {
-        public List<Competence> Competence { get; set; }
+        public string Nom    { get; set; }
+        public string Prenom { get; set; }
+        public Profil Profil { get; set; }
+        public List<Creneau> Indisponibilites { get; set; }
 
-        public List<Disponibilite> disponibilites { get; set; }
-
-        public bool uneCompetence(Competence competence)
+        private List<Creneau> GetIndisponibilites(DateTime date)
         {
-            if (Competence.Contains(competence))
+            // Retourne la liste des indispos sur 1 journée
+            return Indisponibilites.Where(d => d.Debut == date).ToList();
+        }
+
+        public bool PeutTester(Candidat candidat)
+        {
+            return Profil.EstCompatible(candidat.Profil);// && !candidat.Cooptant.Equals(this);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ConsultantRecruteur);
+        }
+
+        public bool Equals(ConsultantRecruteur other)
+        {
+            return other != null &&
+                   Nom == other.Nom &&
+                   Prenom == other.Prenom &&
+                   EqualityComparer<Profil>.Default.Equals(Profil, other.Profil);
+        }
+
+        public bool EstDisponible(Creneau creneauSouhaite)
+        {
+            List<Creneau> creneaux = GetIndisponibilites(creneauSouhaite.GetJournee());
+            foreach (Creneau c in creneaux)
             {
-                return true;
+                bool result = creneauSouhaite.SeChevauche(c);
+                if (result == false) return true;
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Nom, Prenom, Profil);
+        }
+
     }
 }
