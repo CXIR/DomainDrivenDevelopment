@@ -225,7 +225,7 @@ namespace DDDPlanification.MockService
                 {
                     Competences = new Dictionary<Competence, Niveau>()
                     {
-                        { Technologies.GetValueOrDefault("java"), Niveau.Debutant }
+                        { Technologies.GetValueOrDefault("php"), Niveau.Debutant }
                     },
                     AnneesExperience = 4
                 }

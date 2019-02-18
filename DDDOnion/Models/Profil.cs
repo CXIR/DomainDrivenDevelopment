@@ -33,18 +33,11 @@ namespace DDDPlanification.Models
         {
             return HashCode.Combine(Competences, AnneesExperience);
         }
-        //Not working
+        
         public bool EstCompatible(Profil autreProfil)
         {
-            foreach(KeyValuePair<Competence, Niveau> entry in Competences)
-            {
-                if(autreProfil.Competences.TryGetValue(entry.Key, out Niveau value))
-                {
-                    if( value <= entry.Value)
-                    {
-                        return true;
-                    }
-                }
+            if (Competences.Keys.SequenceEqual(autreProfil.Competences.Keys)) {
+                return true;
             }
             return false;
         }

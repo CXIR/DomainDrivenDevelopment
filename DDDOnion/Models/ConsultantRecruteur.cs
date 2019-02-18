@@ -19,7 +19,7 @@ namespace DDDPlanification.Models
 
         public bool PeutTester(Candidat candidat)
         {
-            return Profil.EstCompatible(candidat.Profil);// && !candidat.Cooptant.Equals(this);
+            return Profil.EstCompatible(candidat.Profil) && (candidat.Cooptant == null || !candidat.Cooptant.Equals(this));
         }
 
         public override bool Equals(object obj)
@@ -38,12 +38,11 @@ namespace DDDPlanification.Models
         public bool EstDisponible(Creneau creneauSouhaite)
         {
             List<Creneau> creneaux = GetIndisponibilites(creneauSouhaite.GetJournee());
-            foreach (Creneau c in creneaux)
-            {
-                bool result = creneauSouhaite.SeChevauche(c);
-                if (result == false) return true;
+
+            if (creneaux.Count == 0) {
+                return true;
             }
-            return false;
+            return creneaux.Select(c => creneauSouhaite.SeChevauche(c)).Any(result => result == false);
         }
 
         public override int GetHashCode()
